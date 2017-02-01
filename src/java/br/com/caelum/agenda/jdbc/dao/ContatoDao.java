@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import javax.servlet.ServletException;
 import org.joda.time.DateTime;
 
 public class ContatoDao {
@@ -16,8 +17,13 @@ public class ContatoDao {
     private Connection conn;
 
     public ContatoDao() {
+        try{
         this.conn = new ConnectionFactory().getConnection();
-
+        }
+        catch(ServletException e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void adiciona(Contato contato) {
@@ -66,10 +72,10 @@ public class ContatoDao {
 
     }
 
-    public Contato getContato(int id) {
+    public Contato getContato(Long id) {
         try {
             PreparedStatement stmt = this.conn.prepareStatement("select * from contatos where id = ?");
-            stmt.setInt(1, id);
+            stmt.setLong(1, id);
             ResultSet rs = stmt.executeQuery();
             Contato contato = null;
             while (rs.next()) {

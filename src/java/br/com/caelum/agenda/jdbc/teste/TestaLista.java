@@ -25,7 +25,8 @@ public class TestaLista {
         } else {
             System.out.println("A consulta não retornou registros!");
         }
-        Contato contato = dao.getContato(4);
+        long ind = 4;
+        Contato contato = dao.getContato(ind);
         if (contato != null) {
 
             System.out.println("Nome: " + contato.getNome());
